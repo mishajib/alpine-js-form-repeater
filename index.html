@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Search From Pixabay</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    />
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <div class="row" x-data="repeaterModule" x-cloak>
+          <div class="col-md-12">
+            <h1 class="text-center">Alpine JS Repeater</h1>
+            <form action="#" @submit.prevent="submitHandler()">
+              <fieldset class="mb-4">
+                <legend>Items</legend>
+                <template x-if="items.length > 0">
+                  <div class="itemGroup">
+                    <template x-for="(item, index) in items">
+                      <div
+                        class="card itemElement mb-4"
+                        style="border: 1px solid grey; padding: 10px"
+                      >
+                        <div class="card-body">
+                          <template x-if="items.length > 1">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <button
+                                  type="button"
+                                  class="
+                                    btn btn-danger
+                                    float-right
+                                    btn-sm
+                                    removeVariationBtn
+                                  "
+                                  @click="removeItem(index)"
+                                >
+                                  X
+                                </button>
+                              </div>
+                            </div>
+                          </template>
+
+                          <div class="form-group">
+                            <label for="name">Name</label>
+                            <input
+                              id="name"
+                              type="text"
+                              x-bind:name="'contents['+ index +'][name]'"
+                              class="form-control"
+                              placeholder="Enter name"
+                              x-model="item.name"
+                            />
+                          </div>
+
+                          <div class="form-group">
+                            <label for="designation">Designation</label>
+                            <input
+                              id="designation"
+                              type="text"
+                              x-bind:name="'contents['+ index +'][designation]'"
+                              class="form-control"
+                              placeholder="Enter designation"
+                              x-model="item.designation"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                    <br />
+                  </div>
+                </template>
+
+                <div class="form-group mt-n3">
+                  <button
+                    class="btn btn-primary float-right"
+                    type="button"
+                    id="addVariation"
+                    @click="addItem"
+                  >
+                    Add Variation +
+                  </button>
+                </div>
+              </fieldset>
+
+              <button class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js"
+      defer
+    ></script>
+    <script>
+      const repeaterModule = {
+        items: [
+          {
+            name: "",
+            designation: "",
+          },
+        ],
+        addItem() {
+          let self = this;
+          let item = {
+            name: "",
+            designation: "",
+          };
+          self.items.push(item);
+        },
+        removeItem(index) {
+          this.items.splice(index, 1);
+        },
+        submitHandler() {
+          console.log(this.items);
+        },
+      };
+    </script>
+  </body>
+</html>
